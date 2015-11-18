@@ -60,7 +60,7 @@ removeButton = @(h,e)removeKanji(h,e,nameListBox,fileDir);
 set(b3,'callback',removeButton);
 
 %% initialize userdata
-data.inputText = [];
+% data.inputText = [];
 data.dispFile = @()listBoxCallback(nameListBox,[]);
 guidata(f,data);
 
@@ -69,12 +69,8 @@ end
 function removeKanji(hObject,~,nameListBox,fileDir)
 
 % create a dialog box to ask which kanji to remove, wait until it's closed
-f = RemoveKanjiBox(hObject);
-uiwait(f);
-
-% load guidata to get the answer
-data = guidata(hObject);
-answer = data.inputText;
+[answer] = RemoveKanjiBox;
+% uiwait(f);
 
 if(~isempty(answer))
     
@@ -101,6 +97,7 @@ if(~isempty(answer))
         textPrinter(tLine,kList,fPath);
     end    
     
+    data = guidata(hObject);
     data.dispFile();
     
 end
