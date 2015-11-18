@@ -57,12 +57,37 @@ set(nameListBox,'callback',listBoxCallback);
 listBoxCallback(nameListBox,0);
 
 removeButton = @(h,e)removeKanji(h,e,nameListBox,fileDir);
+set(b2,'callback',@(h,e)addKanji(h,nameListBox,fileDir));
 set(b3,'callback',removeButton);
 
 %% initialize userdata
-% data.inputText = [];
 data.dispFile = @()listBoxCallback(nameListBox,[]);
 guidata(f,data);
+
+end
+
+function fPath = getFilePath(nameListBox,fileDir)
+
+    items = get(nameListBox,'String');
+    index = get(nameListBox,'Value');
+    fPath = fullfile(fileDir,items{index});
+
+end
+
+function addKanji(hObject,nameListBox,fileDir)
+
+kVar = AddKanjiBox;
+
+fPath = getFilePath(nameListBox,fileDir);
+
+% read in all the kanji in the file
+[tLine, kList] = textReader(fPath);
+
+for kanji = kList
+    
+    kanji.mergeKanji(kVar);
+    
+end
 
 end
 
@@ -70,13 +95,10 @@ function removeKanji(hObject,~,nameListBox,fileDir)
 
 % create a dialog box to ask which kanji to remove, wait until it's closed
 [answer] = RemoveKanjiBox;
-% uiwait(f);
 
 if(~isempty(answer))
-    
-    items = get(nameListBox,'String');
-    index = get(nameListBox,'Value');
-    fPath = fullfile(fileDir,items{index});
+
+    fPath = getFilePath(nameListBox,fileDir);
     
     % read in all the kanji in the file
     [tLine, kList] = textReader(fPath);

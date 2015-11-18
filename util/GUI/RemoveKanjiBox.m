@@ -27,10 +27,15 @@ set(eBox,'callback',@(h,e)eBoxCallBack(h,jEditbox));
 % wait until edit box string changes, then use the string as the answer
 waitfor(eBox,'string');
 
-data = guidata(f);
-answer = data.inputText;
+% handle the case where the figure was closed beforehand
+if(ishandle(f))
+    data = guidata(f);
+    answer = data.inputText;
 
-close(f);
+    close(f);
+else
+    answer = [];
+end
 
 end
 

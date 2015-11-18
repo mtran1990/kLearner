@@ -17,6 +17,19 @@ classdef KanjiVar
             
         end
         
+        function out = mergeKanji(obj, other)
+            if(strcmp(obj.kanji,other.kanji))
+                obj.phrases.characters = union(obj.phrases.characters,...
+                    other.phrases.characters,'stable');
+                obj.phrases.readings = union(obj.phrases.readings,...
+                    other.phrases.readings,'stable');
+                
+                out = 1;
+            end
+            
+            out = 0;
+            
+        end
         
     end
     
