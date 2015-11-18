@@ -78,15 +78,31 @@ function addKanji(hObject,nameListBox,fileDir)
 
 kVar = AddKanjiBox;
 
-fPath = getFilePath(nameListBox,fileDir);
+if(~isempty(kVar))
+    fPath = getFilePath(nameListBox,fileDir);
 
-% read in all the kanji in the file
-[tLine, kList] = textReader(fPath);
+    % read in all the kanji in the file
+    [tLine, kList] = textReader(fPath);
 
-for kanji = kList
+    newKanji = true;
+
+    for kanji = kList
+
+        if(kanji.mergeKanji(kVar))
+            newKanji = false;
+            break;
+        end
+
+    end
+
+    if(newKanji)
+        kList = [kList kVar];
+    end
+
+    textPrinter(tLine,kList,fPath);
     
-    kanji.mergeKanji(kVar);
-    
+    data = guidata(hObject);
+    data.dispFile();
 end
 
 end

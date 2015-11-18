@@ -79,8 +79,8 @@ if(strcmp(eData.Key,'return'))
         phrases = parseText(p);
         readings = parseText(r);
 
-        l1 = length(phrases{:});
-        l2 = length(readings{:});
+        l1 = length(phrases);
+        l2 = length(readings);
 
         if(l1 ~= l2)    
             warning('Mismatch in the number of Phrases / Readings');
@@ -100,5 +100,6 @@ end
 function str = parseText(txt)
 
 str = textscan(txt,'%s','delimiter',',');
+str = str{:};
 
 end

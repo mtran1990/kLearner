@@ -15,6 +15,8 @@ for i = kList
     
     phraseCount = length(characters);
     
+    fprintf(fid,'Phrases\r\n');
+    
     for j = 1:phraseCount
 
         fprintf(fid,'+%s:\t%s\r\n',characters{j},readings{j});

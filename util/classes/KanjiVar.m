@@ -2,7 +2,7 @@
 % Consists of a single kanji, multiple phrases, and their readings
 % Contains methods to create a variable with this information
 
-classdef KanjiVar
+classdef KanjiVar < handle
     properties
         kanji
         phrases                
@@ -24,10 +24,10 @@ classdef KanjiVar
                 obj.phrases.readings = union(obj.phrases.readings,...
                     other.phrases.readings,'stable');
                 
-                out = 1;
+                out = true;
+            else
+                out = false;
             end
-            
-            out = 0;
             
         end
         
